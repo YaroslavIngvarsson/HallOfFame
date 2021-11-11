@@ -13,12 +13,12 @@ namespace HallOfFame.Logic.Interfaces
         /// </summary>
         /// <param name="id">Person's id.</param>
         /// <returns>An instance of a PersonDto if exists, otherwise null.</returns>
-        Task<PersonDto> GetPerson(long id);
+        Task<PersonShortenDto> GetPerson(long id);
         /// <summary>
         /// Get all the PersonDto instances.
         /// </summary>
         /// <returns>Set of people.</returns>
-        Task<ICollection<PersonDto>> GetPeople();
+        Task<ICollection<PersonFullDto>> GetPeople();
         /// <summary>
         /// Delete an instance of a person by their id.
         /// </summary>
@@ -30,13 +30,13 @@ namespace HallOfFame.Logic.Interfaces
         /// </summary>
         /// <param name="personDto">Person to create.</param>
         /// <returns>Created person.</returns>
-        Task<PersonDto> CreatePerson(PersonDto personDto);
+        Task<PersonShortenDto> CreatePerson(PersonShortenDto personDto);
         /// <summary>
         /// Update an instance of a person.
         /// </summary>
         /// <param name="id">Person's id.</param>
         /// <param name="personDto"></param>
         /// <returns>An updated person.</returns>
-        Task<PersonDto> UpdatePerson(long id, PersonDto personDto);
+        Task<PersonShortenDto> UpdatePerson(long id, PersonShortenDto personDto);
     }
 }

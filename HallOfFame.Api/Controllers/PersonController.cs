@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HallOfFame.Api.Controllers
 {
     /// <summary>
-    /// CRUD on <see cref="PersonDto"/> and return a set of Persons.
+    /// CRUD on <see cref="PersonShortenDto"/> and return a set of Persons.
     /// </summary>
     [Consumes("application/json")]
     [Produces("application/json")]
@@ -18,7 +18,7 @@ namespace HallOfFame.Api.Controllers
     {
         private readonly IDtoService _dtoService;
         /// <summary>
-        /// Controller for <see cref="PersonDto"/>.
+        /// Controller for <see cref="PersonShortenDto"/>.
         /// </summary>
         /// <param name="dtoService">Database repository</param>
         public PersonController(IDtoService dtoService)
@@ -27,7 +27,7 @@ namespace HallOfFame.Api.Controllers
         }
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("/api/v1/Persons")]
-        public async Task<ActionResult<IEnumerable<PersonDto>>> GetPeople()
+        public async Task<ActionResult<IEnumerable<PersonShortenDto>>> GetPeople()
         {
             return Ok(await _dtoService.GetPeople());
         }
@@ -40,7 +40,7 @@ namespace HallOfFame.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("api/v1/person")]
         [HttpPost("")]
-        public async Task<ActionResult<PersonDto>> CreatePerson([FromBody] PersonDto personDto)
+        public async Task<ActionResult<PersonShortenDto>> CreatePerson([FromBody] PersonShortenDto personDto)
         {
             var newPerson = await _dtoService.CreatePerson(personDto);
             return (newPerson is null) ? BadRequest() : Ok(newPerson);
@@ -54,7 +54,7 @@ namespace HallOfFame.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Route("api/v1/person/{id:long}")]
         [HttpGet("{id:long}")]
-        public async Task<ActionResult<PersonDto>> GetPerson(long id)
+        public async Task<ActionResult<PersonShortenDto>> GetPerson(long id)
         {
             var dtoPerson = await _dtoService.GetPerson(id);
             return (dtoPerson is null)? NotFound() : Ok(dtoPerson);
@@ -69,7 +69,7 @@ namespace HallOfFame.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Route("api/v1/person/{id:long}")]
         [HttpPut("{id:long}")]
-        public async Task<ActionResult<PersonDto>> UpdatePerson(long id, [FromBody] PersonDto personDto)
+        public async Task<ActionResult<PersonShortenDto>> UpdatePerson(long id, [FromBody] PersonShortenDto personDto)
         {
             var updatedPerson = await _dtoService.UpdatePerson(id, personDto);
             return (updatedPerson is null) ? NotFound() : Ok(personDto);
@@ -83,7 +83,7 @@ namespace HallOfFame.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Route("api/v1/person/{id:long}")]
         [HttpDelete("{id:long}")]
-        public async Task<ActionResult<PersonDto>> DeletePerson(long id)
+        public async Task<ActionResult<PersonShortenDto>> DeletePerson(long id)
         {
             var isSuccessful = await _dtoService.DeletePerson(id);
             return isSuccessful? Ok() : NotFound();

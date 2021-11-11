@@ -33,14 +33,15 @@ namespace HallOfFame.Logic
                 Name = skillDto.Name,
                 Level = skillDto.Level
             };
-        }/// <summary>
+        }
+         /// <summary>
          /// Casting Model Person to DTO.
          /// </summary>
          /// <param name="person">Model Person.</param>
          /// <returns>DTO Person.</returns>
-        public static PersonDto ToDto(this Person person)
+        public static PersonShortenDto ToDto(this Person person)
         {
-            return new PersonDto()
+            return new PersonShortenDto()
             {
                 Name = person.Name,
                 DisplayName = person.DisplayName,
@@ -52,13 +53,28 @@ namespace HallOfFame.Logic
         /// </summary>
         /// <param name="personDto">DTO Person.</param>
         /// <returns>Model Person.</returns>
-        public static Person ToModel(this PersonDto personDto)
+        public static Person ToModel(this PersonShortenDto personDto)
         {
             return new Person()
             {
                 Name = personDto.Name,
                 DisplayName = personDto.DisplayName,
                 Skills = personDto.Skills.Select(x => x.ToModel()).ToList()
+            };
+        }
+        /// <summary>
+        /// Casting Model person to full Dto.
+        /// </summary>
+        /// <param name="person">Model Person to convert.</param>
+        /// <returns>Full Dto with ids.</returns>
+        public static PersonFullDto ToFullDto(this Person person)
+        {
+            return new PersonFullDto()
+            {
+                Id = person.Id,
+                Name = person.Name,
+                DisplayName = person.DisplayName,
+                Skills = person.Skills.Select(x => x.ToDto()).ToList()
             };
         }
     }
