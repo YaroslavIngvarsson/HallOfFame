@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Data\HallOfFame.Data.csproj" />
+    <ProjectReference Include="..\HallOfFame.Common\HallOfFame.Common.csproj" />
     <ProjectReference Include="..\Logic\HallOfFame.Logic.csproj" />
   </ItemGroup>
 

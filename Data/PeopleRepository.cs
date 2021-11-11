@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HallOfFame.Common.Interfaces;
 using HallOfFame.Data.Interfaces;
 using HallOfFame.Data.Model;
 using Microsoft.EntityFrameworkCore;
@@ -13,11 +15,18 @@ namespace HallOfFame.Data
     public class PeopleRepository : IPeopleRepository
     {
         private readonly HallOfFameDbContext _context;
+        private readonly ISimplifiedLogger _logger;
         /// <summary>
         /// Initializing repository.
         /// </summary>
         /// <param name="context">Data base context.</param>
-        public PeopleRepository(HallOfFameDbContext context) => _context = context;
+        /// /// <param name="logger">Logger.</param>
+        public PeopleRepository(HallOfFameDbContext context, ISimplifiedLogger logger)
+        {
+            _context = context;
+            _logger = logger;
+        }
+
         /// <summary>
         /// Adding a person to Db.
         /// </summary>
@@ -32,8 +41,9 @@ namespace HallOfFame.Data
                 await _context.SaveChangesAsync();
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                _logger.Log(ex);
                 return false;
             }
         }
@@ -58,8 +68,9 @@ namespace HallOfFame.Data
                 await _context.SaveChangesAsync();
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                _logger.Log(ex);
                 return false;
             }
         }
@@ -69,9 +80,18 @@ namespace HallOfFame.Data
         /// <returns>A set of people.</returns>
         public async Task<ICollection<Person>> GetPeople()
         {
-            return await _context.People
-                .Include(x => x.Skills)
-                .ToListAsync();
+            try
+            {
+                return await _context.People
+                    .Include(x => x.Skills)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.Log(ex);
+                return null;
+            }
+            
         }
         /// <summary>
         /// Getting a person from Db.
@@ -80,10 +100,18 @@ namespace HallOfFame.Data
         /// <returns>An instance of a person.</returns>
         public async Task<Person> GetPerson(long id)
         {
-            return await _context.People
-                .Where(x => x.Id == id)
-                .Include(x => x.Skills)
-                .FirstOrDefaultAsync();
+            try
+            {
+                return await _context.People
+                    .Where(x => x.Id == id)
+                    .Include(x => x.Skills)
+                    .FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.Log(ex);
+                return null;
+            }
         }
         /// <summary>
         /// Updating a person in Db.
@@ -112,8 +140,9 @@ namespace HallOfFame.Data
                 await _context.SaveChangesAsync();
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                _logger.Log(ex);
                 return false;
             }
         }

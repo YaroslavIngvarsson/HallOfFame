@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Data\HallOfFame.Data.csproj" />
+    <ProjectReference Include="..\HallOfFame.Common\HallOfFame.Common.csproj" />
   </ItemGroup>
 
 </Project>
