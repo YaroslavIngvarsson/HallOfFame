@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using HallOfFame.Logic;
+using HallOfFame.Common;
+using Microsoft.Extensions.Logging;
 
 namespace HallOfFame.Api
 {
@@ -30,6 +32,7 @@ namespace HallOfFame.Api
             });
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<HallOfFameDbContext>(options => options.UseSqlServer(connection));
+            services.AddSingleton<ILogger, FileLogger>();
             services.AddScoped<IPeopleRepository, PeopleRepository>();
             services.AddScoped<IDtoService, DtoService>();
 
