@@ -6,7 +6,7 @@ namespace HallOfFame.Logic
     /// <summary>
     /// Employee's Data Transfer Object model.
     /// </summary>
-    public class PersonDto
+    public class PersonShortenDto
     {
         [Required]
         public string Name { get; set; }
@@ -19,6 +19,5 @@ namespace HallOfFame.Logic
         /// Employee's skill set.
         /// </summary>
         public ICollection<SkillDto> Skills { get; set; }
-
     }
 }

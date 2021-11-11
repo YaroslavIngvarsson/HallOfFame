@@ -26,7 +26,7 @@ namespace HallOfFame.Logic
         /// </summary>
         /// <param name="id">Person's id.</param>
         /// <returns>Person's DTO.</returns>
-        public async Task<PersonDto> GetPerson(long id)
+        public async Task<PersonShortenDto> GetPerson(long id)
         {
             var person = await _repository.GetPerson(id);
             return person?.ToDto();
@@ -35,10 +35,10 @@ namespace HallOfFame.Logic
         /// Getting all the people from Db.
         /// </summary>
         /// <returns>Set of people.</returns>
-        public async Task<ICollection<PersonDto>> GetPeople()
+        public async Task<ICollection<PersonFullDto>> GetPeople()
         {
             return (await _repository.GetPeople())
-                .Select(x => x.ToDto()).ToList();
+                .Select(x => x.ToFullDto()).ToList();
         }
         /// <summary>
         /// Deleting a person from db.
@@ -54,7 +54,7 @@ namespace HallOfFame.Logic
         /// </summary>
         /// <param name="personDto">Person's DTO.</param>
         /// <returns>Created person.</returns>
-        public async Task<PersonDto> CreatePerson(PersonDto personDto)
+        public async Task<PersonShortenDto> CreatePerson(PersonShortenDto personDto)
         {
             var newPerson = new Person()
             {
@@ -72,7 +72,7 @@ namespace HallOfFame.Logic
         /// <param name="id">Person's id.</param>
         /// <param name="personDto">Person's info to update.</param>
         /// <returns>Updated person.</returns>
-        public async Task<PersonDto> UpdatePerson(long id, PersonDto personDto)
+        public async Task<PersonShortenDto> UpdatePerson(long id, PersonShortenDto personDto)
         {
             var isSuccessful = await _repository.UpdatePerson(id, personDto.ToModel());
             return isSuccessful ? personDto : null;
