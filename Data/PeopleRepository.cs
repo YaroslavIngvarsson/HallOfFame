@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HallOfFame.Common.Interfaces;
 using HallOfFame.Data.Interfaces;
 using HallOfFame.Data.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace HallOfFame.Data
 {
@@ -15,13 +15,13 @@ namespace HallOfFame.Data
     public class PeopleRepository : IPeopleRepository
     {
         private readonly HallOfFameDbContext _context;
-        private readonly ISimplifiedLogger _logger;
+        private readonly ILogger _logger;
         /// <summary>
         /// Initializing repository.
         /// </summary>
         /// <param name="context">Data base context.</param>
-        /// /// <param name="logger">Logger.</param>
-        public PeopleRepository(HallOfFameDbContext context, ISimplifiedLogger logger)
+        /// <param name="logger">File logger.</param>
+        public PeopleRepository(HallOfFameDbContext context, ILogger logger)
         {
             _context = context;
             _logger = logger;
@@ -43,7 +43,7 @@ namespace HallOfFame.Data
             }
             catch (Exception ex)
             {
-                _logger.Log(ex);
+                _logger.LogError(ex, "");
                 return false;
             }
         }
@@ -70,7 +70,7 @@ namespace HallOfFame.Data
             }
             catch (Exception ex)
             {
-                _logger.Log(ex);
+                _logger.LogError(ex, "");
                 return false;
             }
         }
@@ -88,7 +88,7 @@ namespace HallOfFame.Data
             }
             catch (Exception ex)
             {
-                _logger.Log(ex);
+                _logger.LogError(ex, "");
                 return null;
             }
             
@@ -106,10 +106,10 @@ namespace HallOfFame.Data
                     .Where(x => x.Id == id)
                     .Include(x => x.Skills)
                     .FirstOrDefaultAsync();
-            }
+            } 
             catch (Exception ex)
             {
-                _logger.Log(ex);
+                _logger.LogError(ex, "");
                 return null;
             }
         }
@@ -142,7 +142,7 @@ namespace HallOfFame.Data
             }
             catch (Exception ex)
             {
-                _logger.Log(ex);
+                _logger.LogError(ex, "");
                 return false;
             }
         }

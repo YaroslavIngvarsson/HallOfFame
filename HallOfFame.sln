@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HallOfFame.Data", "Data\Hal
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HallOfFame.Logic", "Logic\HallOfFame.Logic.csproj", "{79411890-4918-45FC-BA9D-F5E61A15C0A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HallOfFame.Common", "HallOfFame.Common\HallOfFame.Common.csproj", "{72C6DE2B-FB8D-4EDE-9085-41A4B782E820}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HallOfFame.Common", "HallOfFame.Common\HallOfFame.Common.csproj", "{72C6DE2B-FB8D-4EDE-9085-41A4B782E820}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
