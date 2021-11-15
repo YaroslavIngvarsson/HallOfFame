@@ -8,6 +8,9 @@ namespace HallOfFame.Logic
     /// </summary>
     public class PersonShortenDto
     {
+        /// <summary>
+        /// Person's name.
+        /// </summary>
         [Required]
         public string Name { get; set; }
         /// <summary>

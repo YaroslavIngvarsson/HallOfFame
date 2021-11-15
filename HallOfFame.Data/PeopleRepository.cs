@@ -14,7 +14,13 @@ namespace HallOfFame.Data
     /// </summary>
     public class PeopleRepository : IPeopleRepository
     {
+        /// <summary>
+        /// Db context.
+        /// </summary>
         private readonly HallOfFameDbContext _context;
+        /// <summary>
+        /// File logger.
+        /// </summary>
         private readonly ILogger _logger;
         /// <summary>
         /// Initializing repository.
@@ -26,7 +32,6 @@ namespace HallOfFame.Data
             _context = context;
             _logger = logger;
         }
-
         /// <summary>
         /// Adding a person to Db.
         /// </summary>
@@ -35,7 +40,6 @@ namespace HallOfFame.Data
         public async Task<bool> CreatePerson(Person person)
         {
             await _context.AddAsync(person);
-
             try
             {
                 await _context.SaveChangesAsync();
@@ -63,7 +67,6 @@ namespace HallOfFame.Data
                     .Where(x => x.Person == person)
                     .Select(x => x);
                 _context.Skills.RemoveRange(skillsToRemove);
-
                 _context.People.Remove(person);
                 await _context.SaveChangesAsync();
                 return true;
@@ -91,7 +94,6 @@ namespace HallOfFame.Data
                 _logger.LogError(ex, "");
                 return null;
             }
-            
         }
         /// <summary>
         /// Getting a person from Db.
@@ -106,7 +108,7 @@ namespace HallOfFame.Data
                     .Where(x => x.Id == id)
                     .Include(x => x.Skills)
                     .FirstOrDefaultAsync();
-            } 
+            }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "");
@@ -124,16 +126,13 @@ namespace HallOfFame.Data
             var oldPerson = await _context.People.FindAsync(id);
             if (oldPerson is null)
                 return false;
-
             var skillsToRemove = _context.Skills
                 .Where(x => x.Person == oldPerson)
                 .Select(x => x);
             _context.Skills.RemoveRange(skillsToRemove);
-
             oldPerson.Name = person.Name;
             oldPerson.DisplayName = person.DisplayName;
             oldPerson.Skills = person.Skills;
-
             try
             {
                 _context.People.Update(oldPerson);
@@ -148,4 +147,3 @@ namespace HallOfFame.Data
         }
     }
 }
-

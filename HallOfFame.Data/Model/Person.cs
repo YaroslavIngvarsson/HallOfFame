@@ -26,7 +26,5 @@ namespace HallOfFame.Data.Model
         /// Employee's skill set.
         /// </summary>
         public ICollection<Skill> Skills { get; set; }
-
     }
 }
-

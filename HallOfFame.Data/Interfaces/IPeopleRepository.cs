@@ -39,7 +39,5 @@ namespace HallOfFame.Data.Interfaces
         /// <param name="person">New model.</param>
         /// <returns>True if successfully updated.</returns>
         Task<bool> UpdatePerson(long id, Person person);
-
     }
 }
-

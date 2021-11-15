@@ -16,6 +16,9 @@ namespace HallOfFame.Api.Controllers
     [Route("api/v1/[controller]")]
     public class PersonController : Controller
     {
+        /// <summary>
+        /// Service for accessing the Db and converting models to Dto and vice versa.
+        /// </summary>
         private readonly IDtoService _dtoService;
         /// <summary>
         /// Controller for <see cref="PersonShortenDto"/>.
@@ -57,7 +60,7 @@ namespace HallOfFame.Api.Controllers
         public async Task<ActionResult<PersonShortenDto>> GetPerson(long id)
         {
             var dtoPerson = await _dtoService.GetPerson(id);
-            return (dtoPerson is null)? NotFound() : Ok(dtoPerson);
+            return (dtoPerson is null) ? NotFound() : Ok(dtoPerson);
         }
         /// <summary>
         /// Update a person.
@@ -86,7 +89,7 @@ namespace HallOfFame.Api.Controllers
         public async Task<ActionResult<PersonShortenDto>> DeletePerson(long id)
         {
             var isSuccessful = await _dtoService.DeletePerson(id);
-            return isSuccessful? Ok() : NotFound();
+            return isSuccessful ? Ok() : NotFound();
         }
     }
 }
