@@ -12,6 +12,9 @@ namespace HallOfFame.Logic
     /// </summary>
     public class DtoService : IDtoService
     {
+        /// <summary>
+        /// Db repository.
+        /// </summary>
         private readonly IPeopleRepository _repository;
         /// <summary>
         /// Initializing Dto service.
@@ -62,7 +65,6 @@ namespace HallOfFame.Logic
                 DisplayName = personDto.DisplayName,
                 Skills = personDto.Skills.Select(x => x.ToModel()).ToList()
             };
-
             var isSuccessful = await _repository.CreatePerson(newPerson);
             return isSuccessful ? newPerson.ToDto() : null;
         }

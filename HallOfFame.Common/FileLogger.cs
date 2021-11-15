@@ -40,13 +40,13 @@ namespace HallOfFame.Common
         /// <param name="state">The entry to be written.</param>
         /// <param name="exception">The exception related to this entry.</param>
         /// <param name="formatter">Function to create a String message of the state and exception.</param>
-        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception,
+            Func<TState, Exception, string> formatter)
         {
             if (!IsEnabled(logLevel))
             {
                 return;
             }
-
             var directory = Directory.GetParent(Assembly.GetExecutingAssembly().Location)?.FullName;
             var date = DateTime.Now.ToShortDateString();
             var folderPath = $"{directory}/logs/";
@@ -54,18 +54,15 @@ namespace HallOfFame.Common
             var logRecord = "";
             if (exception is not null)
                 logRecord = exception.ToString();
-
             var writingThread = new Thread(() =>
             {
                 try
                 {
                     _semaphore.WaitOne();
-
                     if (!Directory.Exists(folderPath))
                     {
                         Directory.CreateDirectory(folderPath);
                     }
-
                     using (var streamWriter = new StreamWriter(filePath, true))
                     {
                         streamWriter.WriteLineAsync(logRecord);
@@ -75,7 +72,6 @@ namespace HallOfFame.Common
                 {
                     _semaphore.Release();
                 }
-
             });
             writingThread.Start();
         }

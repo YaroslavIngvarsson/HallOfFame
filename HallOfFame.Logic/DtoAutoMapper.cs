@@ -34,18 +34,18 @@ namespace HallOfFame.Logic
                 Level = skillDto.Level
             };
         }
-         /// <summary>
-         /// Casting Model Person to DTO.
-         /// </summary>
-         /// <param name="person">Model Person.</param>
-         /// <returns>DTO Person.</returns>
+        /// <summary>
+        /// Casting Model Person to DTO.
+        /// </summary>
+        /// <param name="person">Model Person.</param>
+        /// <returns>DTO Person.</returns>
         public static PersonShortenDto ToDto(this Person person)
         {
             return new PersonShortenDto()
             {
                 Name = person.Name,
                 DisplayName = person.DisplayName,
-                Skills = person.Skills.Select(x =>x.ToDto()).ToList()
+                Skills = person.Skills.Select(x => x.ToDto()).ToList()
             };
         }
         /// <summary>
